@@ -1,7 +1,7 @@
 <template>
   <button
     ref="btn"
-    :title="tltle"
+    :title="title"
     :type="nativeType"
     :class="classes"
     :style="styleCls"
@@ -13,6 +13,7 @@
   >
     <Icon name="load-c" v-if="loading" class="h-load-loop"></Icon>
     <Icon :name="icon" v-if="!!icon && !loading"></Icon>
+    <span v-if="showSlot"><slot></slot></span>
   </button>
 </template>
 
@@ -30,8 +31,9 @@ const types = [
   "error",
   "transparent",
 ];
+const prefixCls = 'h-btn'
 export default {
-  name: "",
+  name: "HButton",
   mixins: [],
   components: { Icon },
   props: {
@@ -40,14 +42,8 @@ export default {
         return types.includes(value);
       },
     },
-    btnWidth: {
-      type: Number,
-      default: 0,
-    },
-    btnHeight: {
-      type: Number,
-      default: 0,
-    },
+    btnWidth: [Number,String],
+    btnHeight:  [Number,String],
     btnBgColor: {
       type: String,
       default: "",
@@ -116,11 +112,11 @@ export default {
     },
     styleCls() {
       const style = {};
-      if (this.btnWidth > 0) {
-        style.width = this.btnWidth;
+      if (this.btnWidth) {
+        style.width = this.btnWidth+'px';
       }
-      if (this.btnHeight > 0) {
-        style.height = this.btnHeight;
+      if (this.btnHeight) {
+        style.height = this.btnHeight+'px';
       }
       if (this.btnBgColor) {
         style.bgColor = this.btnBgColor;

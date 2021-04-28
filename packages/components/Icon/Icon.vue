@@ -10,7 +10,7 @@
 <script>
 const prefixCls = "h-icon";
 export default {
-  name: "Icon",
+  name: "HIcon",
   mixins: [],
   components: {},
   props: {

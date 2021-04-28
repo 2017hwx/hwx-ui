@@ -1,19 +1,19 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <h-button type="primary">button</h-button>
+    <img alt="Vue logo" src="./assets/logo.png" />
+    <h-button type="primary" title="hahahha" :btnWidth="80" :btnHeight="30">button</h-button>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+//import HelloWorld from './components/HelloWorld.vue'
 
 export default {
-  name: 'App',
+  name: "App",
   components: {
-    HelloWorld
-  }
-}
+    // HelloWorld
+  },
+};
 </script>
 
 <style>

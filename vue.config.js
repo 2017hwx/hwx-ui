@@ -1,5 +1,5 @@
 //const isProd = process.env.NODE_ENV === 'production'
-
+const path = require('path')
 module.exports = {
     /* 路由的公共前缀，默认为'/',也可以根据需要配置路由前缀，例如'/client/' */
     publicPath: '/',
@@ -70,10 +70,26 @@ module.exports = {
     /* 其值可以是对象，也可以是函数 */
     configureWebpack: {},
     // 扩展 webpack 配置，使 packages 加入编译
-    // chainWebpack:
-    //     config => {
-    //         config.module.rule('js').add('packages').end().use('babel').loader('babel-loader')
-    //     },
+    chainWebpack:
+        config => {
+            // @ 默认指向 src 目录，这里要改成 examples
+            // 另外也可以新增一个 ~ 指向 packages
+            config.resolve.alias
+                .set('@', path.resolve('examples'))
+                .set('~', path.resolve('packages'))
+
+            // 把 packages 和 examples 加入编译，因为新增的文件默认是不被 webpack 处理的
+            config.module
+                .rule('js')
+                .include.add(/packages/).end()
+                .include.add(/examples/).end()
+                .use('babel')
+                .loader('babel-loader')
+                .tap(options => {
+                    // 修改它的选项...
+                    return options
+                })
+        },
 
     devServer:
     {
